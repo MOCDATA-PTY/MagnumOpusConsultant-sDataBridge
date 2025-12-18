@@ -33,29 +33,29 @@ const ChartCard = ({ title, type }: ChartCardProps) => {
             <AreaChart data={areaData}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(262, 83%, 58%)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(262, 83%, 58%)" stopOpacity={0} />
+                  <stop offset="5%" stopColor="hsl(201, 91%, 23%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(201, 91%, 23%)" stopOpacity={0} />
                 </linearGradient>
                 <linearGradient id="colorPrev" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(199, 89%, 48%)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(199, 89%, 48%)" stopOpacity={0} />
+                  <stop offset="5%" stopColor="hsl(174, 72%, 40%)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="hsl(174, 72%, 40%)" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(217, 33%, 17%)" />
-              <XAxis dataKey="name" stroke="hsl(215, 20%, 55%)" fontSize={12} />
-              <YAxis stroke="hsl(215, 20%, 55%)" fontSize={12} />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "hsl(222, 47%, 8%)",
-                  border: "1px solid hsl(217, 33%, 17%)",
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
-                  color: "hsl(210, 40%, 98%)",
+                  color: "hsl(var(--foreground))",
                 }}
               />
               <Area
                 type="monotone"
                 dataKey="value"
-                stroke="hsl(262, 83%, 58%)"
+                stroke="hsl(201, 91%, 23%)"
                 fillOpacity={1}
                 fill="url(#colorValue)"
                 strokeWidth={2}
@@ -63,7 +63,7 @@ const ChartCard = ({ title, type }: ChartCardProps) => {
               <Area
                 type="monotone"
                 dataKey="prev"
-                stroke="hsl(199, 89%, 48%)"
+                stroke="hsl(174, 72%, 40%)"
                 fillOpacity={1}
                 fill="url(#colorPrev)"
                 strokeWidth={2}
@@ -71,18 +71,18 @@ const ChartCard = ({ title, type }: ChartCardProps) => {
             </AreaChart>
           ) : (
             <BarChart data={barData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(217, 33%, 17%)" />
-              <XAxis dataKey="name" stroke="hsl(215, 20%, 55%)" fontSize={12} />
-              <YAxis stroke="hsl(215, 20%, 55%)" fontSize={12} />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: "hsl(222, 47%, 8%)",
-                  border: "1px solid hsl(217, 33%, 17%)",
+                  backgroundColor: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
                   borderRadius: "8px",
-                  color: "hsl(210, 40%, 98%)",
+                  color: "hsl(var(--foreground))",
                 }}
               />
-              <Bar dataKey="value" fill="hsl(262, 83%, 58%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill="hsl(201, 91%, 23%)" radius={[4, 4, 0, 0]} />
             </BarChart>
           )}
         </ResponsiveContainer>

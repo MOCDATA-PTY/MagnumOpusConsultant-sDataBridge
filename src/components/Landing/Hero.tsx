@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="container relative z-10 max-w-6xl mx-auto text-center">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 mb-8 animate-slide-up">
-          <Zap className="w-4 h-4 text-warning" />
+          <Zap className="w-4 h-4 text-accent" />
           <span className="text-sm text-muted-foreground">Unify all your data sources in one place</span>
         </div>
 
@@ -57,7 +57,7 @@ const Hero = () => {
             <span className="text-sm text-foreground">Enterprise Security</span>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-card/40 border border-border/30">
-            <Zap className="w-4 h-4 text-warning" />
+            <Zap className="w-4 h-4 text-accent" />
             <span className="text-sm text-foreground">Real-time Sync</span>
           </div>
         </div>

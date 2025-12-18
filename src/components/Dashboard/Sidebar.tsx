@@ -1,10 +1,13 @@
-import { BarChart3, LayoutDashboard, Plug, FileText, Settings, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
+import { BarChart3, LayoutDashboard, Plug, FileText, Settings, LogOut, ChevronLeft, ChevronRight, Link2, Database } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
+  { icon: Database, label: "Hub Connectors", path: "/connectors" },
+  { icon: Link2, label: "Link Generator", path: "/link-generator" },
   { icon: Plug, label: "Integrations", path: "/integrations" },
   { icon: FileText, label: "Reports", path: "/reports" },
   { icon: Settings, label: "Settings", path: "/settings" },
@@ -36,7 +39,7 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 overflow-y-auto">
         <ul className="space-y-2">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -60,8 +63,18 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* Logout */}
-      <div className="p-4 border-t border-border">
+      {/* Bottom Section */}
+      <div className="p-4 border-t border-border space-y-2">
+        {/* Theme Toggle */}
+        <div className={cn(
+          "flex items-center",
+          collapsed ? "justify-center" : "justify-between px-3"
+        )}>
+          {!collapsed && <span className="text-sm text-muted-foreground">Theme</span>}
+          <ThemeToggle />
+        </div>
+        
+        {/* Logout */}
         <Link
           to="/"
           className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
