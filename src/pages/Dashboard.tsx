@@ -1,8 +1,9 @@
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import StatsCard from "@/components/Dashboard/StatsCard";
 import ChartCard from "@/components/Dashboard/ChartCard";
-import { Users, DollarSign, Eye, MousePointer, Bell } from "lucide-react";
+import { Users, DollarSign, Eye, MousePointer, Bell, Database, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const stats = [
   { title: "Total Visitors", value: "124,892", change: 12.5, icon: Users, color: "primary" as const },
@@ -26,9 +27,11 @@ const Dashboard = () => {
               <Bell className="w-4 h-4 mr-2" />
               Alerts
             </Button>
-            <Button variant="gradient" size="sm">
-              Create Report
-            </Button>
+            <Link to="/reports">
+              <Button variant="gradient" size="sm">
+                Create Report
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -41,12 +44,38 @@ const Dashboard = () => {
           ))}
         </div>
 
+        {/* Quick Actions */}
+        <div className="grid sm:grid-cols-2 gap-4 mb-8">
+          <Link to="/connectors" className="glass-card p-6 hover:border-primary/50 transition-colors animate-slide-up" style={{ animationDelay: "0.4s" }}>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Database className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Hub Connectors</h3>
+                <p className="text-sm text-muted-foreground">Manage 49 data source connections</p>
+              </div>
+            </div>
+          </Link>
+          <Link to="/link-generator" className="glass-card p-6 hover:border-primary/50 transition-colors animate-slide-up" style={{ animationDelay: "0.45s" }}>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                <Link2 className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">Link Generator</h3>
+                <p className="text-sm text-muted-foreground">Create Power BI & Looker Studio links</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+
         {/* Charts */}
         <div className="grid lg:grid-cols-2 gap-6 mb-8">
-          <div className="animate-slide-up" style={{ animationDelay: "0.4s" }}>
+          <div className="animate-slide-up" style={{ animationDelay: "0.5s" }}>
             <ChartCard title="Traffic Overview" type="area" />
           </div>
-          <div className="animate-slide-up" style={{ animationDelay: "0.5s" }}>
+          <div className="animate-slide-up" style={{ animationDelay: "0.55s" }}>
             <ChartCard title="Channel Performance" type="bar" />
           </div>
         </div>
