@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="dark" storageKey="dataflow-ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="dataflow-ui-theme">
       <TooltipProvider>
         <Toaster />
         <Sonner />

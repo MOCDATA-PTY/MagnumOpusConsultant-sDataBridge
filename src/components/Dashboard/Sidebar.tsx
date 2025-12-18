@@ -2,7 +2,6 @@ import { LayoutDashboard, Plug, FileText, Settings, LogOut, ChevronLeft, Chevron
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -64,16 +63,7 @@ const Sidebar = () => {
       </nav>
 
       {/* Bottom Section */}
-      <div className="p-4 border-t border-border space-y-2">
-        {/* Theme Toggle */}
-        <div className={cn(
-          "flex items-center",
-          collapsed ? "justify-center" : "justify-between px-3"
-        )}>
-          {!collapsed && <span className="text-sm text-muted-foreground">Theme</span>}
-          <ThemeToggle />
-        </div>
-        
+      <div className="p-4 border-t border-border">
         {/* Logout */}
         <Link
           to="/"
