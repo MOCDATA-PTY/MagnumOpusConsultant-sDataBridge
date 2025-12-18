@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BarChart3, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { authAPI } from "@/lib/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,16 +18,32 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate login - replace with actual auth
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const result = await authAPI.login({ email, password });
+
+      if (result.success) {
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully signed in.",
+        });
+        navigate("/dashboard");
+      } else {
+        toast({
+          title: "Login failed",
+          description: result.message || "Invalid credentials",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in.",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
       });
-      navigate("/dashboard");
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -129,21 +146,10 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Panel - Branding */}
+      {/* Right Panel - Background */}
       <div className="hidden lg:flex flex-1 items-center justify-center p-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-transparent" />
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-primary/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
-        
-        <div className="relative z-10 text-center">
-          <div className="w-20 h-20 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-6">
-            <BarChart3 className="w-10 h-10 text-primary-foreground" />
-          </div>
-          <h2 className="text-3xl font-bold text-foreground mb-4">DataFlow</h2>
-          <p className="text-muted-foreground max-w-sm">
-            Your all-in-one platform for marketing analytics and reporting
-          </p>
-        </div>
+        <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: 'url(/background.png)'}} />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
     </div>
   );

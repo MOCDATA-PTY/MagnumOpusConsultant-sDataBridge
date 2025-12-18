@@ -1,51 +1,45 @@
 import { Button } from "@/components/ui/button";
-import { BarChart3, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-xl border-b border-border/50">
       <div className="container max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <BarChart3 className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">DataFlow</span>
+          <Link to="/" className="flex items-center gap-2 ml-4 md:ml-8">
+            <img src="/logo.png" alt="Magnum Opus Consultants" className="h-10" />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#features" className="text-black hover:text-black/70 transition-colors">
               Features
             </a>
-            <a href="#integrations" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#integrations" className="text-black hover:text-black/70 transition-colors">
               Integrations
             </a>
-            <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="#pricing" className="text-black hover:text-black/70 transition-colors">
               Pricing
             </a>
           </div>
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <ThemeToggle />
             <Link to="/login">
               <Button variant="ghost">Sign In</Button>
             </Link>
             <Link to="/signup">
-              <Button variant="gradient">Get Started</Button>
+              <Button variant="ghost">Get Started</Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
             <button
               className="p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
@@ -59,13 +53,13 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border/50 animate-fade-in">
             <div className="flex flex-col gap-4">
-              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#features" className="text-black hover:text-black/70 transition-colors py-2">
                 Features
               </a>
-              <a href="#integrations" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#integrations" className="text-black hover:text-black/70 transition-colors py-2">
                 Integrations
               </a>
-              <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors py-2">
+              <a href="#pricing" className="text-black hover:text-black/70 transition-colors py-2">
                 Pricing
               </a>
               <div className="flex flex-col gap-2 pt-4 border-t border-border/50">
@@ -73,7 +67,7 @@ const Navbar = () => {
                   <Button variant="ghost" className="w-full">Sign In</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant="gradient" className="w-full">Get Started</Button>
+                  <Button variant="ghost" className="w-full">Get Started</Button>
                 </Link>
               </div>
             </div>

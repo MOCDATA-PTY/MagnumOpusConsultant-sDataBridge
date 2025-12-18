@@ -1,18 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BarChart3, ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-
-const features = [
-  "50+ marketing integrations",
-  "Unlimited dashboards",
-  "Automated reports",
-  "14-day free trial",
-];
+import { authAPI } from "@/lib/api";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -25,53 +19,39 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate signup - replace with actual auth
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      const result = await authAPI.signup({ name, email, password });
+
+      if (result.success) {
+        toast({
+          title: "Account created!",
+          description: "Welcome to Magnum Opus Consultants. Let's get started!",
+        });
+        navigate("/dashboard");
+      } else {
+        toast({
+          title: "Signup failed",
+          description: result.message || "Please try again",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Account created!",
-        description: "Welcome to DataFlow. Let's get started!",
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
       });
-      navigate("/dashboard");
-    }, 1000);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Left Panel - Branding */}
-      <div className="hidden lg:flex flex-1 items-center justify-center p-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-transparent" />
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
-        
-        <div className="relative z-10 max-w-md">
-          <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mb-8">
-            <BarChart3 className="w-8 h-8 text-primary-foreground" />
-          </div>
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-            Start making data-driven decisions today
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            Join thousands of marketers who trust DataFlow to power their analytics.
-          </p>
-          
-          <ul className="space-y-3">
-            {features.map((feature) => (
-              <li key={feature} className="flex items-center gap-3">
-                <div className="w-5 h-5 rounded-full bg-success/20 flex items-center justify-center">
-                  <Check className="w-3 h-3 text-success" />
-                </div>
-                <span className="text-foreground">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Right Panel - Form */}
+      {/* Left Panel - Form */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-6">
           {/* Back Link */}
           <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="w-4 h-4" />
@@ -85,7 +65,7 @@ const Signup = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name">Full Name</Label>
               <Input
@@ -137,16 +117,6 @@ const Signup = () => {
             </Button>
           </form>
 
-          {/* Divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-border" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
-            </div>
-          </div>
-
           {/* Social Logins */}
           <div className="grid grid-cols-2 gap-4">
             <Button variant="outline" className="h-12">
@@ -166,14 +136,6 @@ const Signup = () => {
             </Button>
           </div>
 
-          {/* Terms */}
-          <p className="text-xs text-center text-muted-foreground">
-            By creating an account, you agree to our{" "}
-            <a href="#" className="text-primary hover:underline">Terms of Service</a>
-            {" "}and{" "}
-            <a href="#" className="text-primary hover:underline">Privacy Policy</a>
-          </p>
-
           {/* Sign In Link */}
           <p className="text-center text-muted-foreground">
             Already have an account?{" "}
@@ -182,6 +144,12 @@ const Signup = () => {
             </Link>
           </p>
         </div>
+      </div>
+
+      {/* Right Panel - Background */}
+      <div className="hidden lg:flex flex-1 items-center justify-center p-12 relative overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: 'url(/background.png)'}} />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
     </div>
   );
